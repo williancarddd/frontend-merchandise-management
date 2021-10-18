@@ -4,14 +4,17 @@ import './index.css'
 import { Home } from './Containers/Home'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Login } from './Containers/Login'
+import { PrivateRoute } from './Components/PrivateRoute'
 
 ReactDOM.render(
   <React.StrictMode>
     {/* provavelmente um menu */}
     <Router>
       <Switch>
-        <Route exact path='/home' component={Home} />
-        <Route exact path='/login' component={Login} />
+        <PrivateRoute path='/home'>
+          <Home />
+        </PrivateRoute>
+        <Route exact path='*' component={Login} />
       </Switch>
     </Router>
   </React.StrictMode>,

@@ -5,7 +5,6 @@ export function getToken(): string | null {
 export function isAuth(): boolean {
   return getToken() !== null
 }
-
-export function setToken(token: string) {
+export function setToken(token: string): void {
   localStorage.setItem(tokenKey, token)
 }
