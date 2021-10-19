@@ -7,7 +7,6 @@ import { api_merchandise } from '../../Services/merchandiseApi'
 import { useClockState } from '../../Assets/Hook/useClockState'
 import { setToken } from '../../Utils/managerToken'
 import { IToken } from '../../Interfaces/IToken'
-import { AxiosError } from 'axios'
 export function Login(): JSX.Element {
   const {
     register,
@@ -19,9 +18,11 @@ export function Login(): JSX.Element {
     try {
       const response = await api_merchandise.post<IToken>('/auth', data)
       setToken(response.data.token_access)
-    } catch ({ response }) {
-      const responsee = response as any
-      setStateLogin(responsee.data.message)
+      window.location.href = window.location.origin + '/home'
+    } catch (response) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const errorr = response as any
+      if (errorr.response) setStateLogin(errorr.response.data.message)
     }
   }
   return (

@@ -13,3 +13,19 @@ export const BoxImage = styled.img(
     padding: 1em;
   `
 )
+
+export const Table = styled.table`
+  border-collapse: collapse;
+  margin: 0 auto;
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    padding-left: 2em;
+    padding-right: 0.5em;
+  }
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+`
