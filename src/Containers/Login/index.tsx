@@ -19,10 +19,10 @@ export function Login(): JSX.Element {
       const response = await api_merchandise.post<IToken>('/auth', data)
       setToken(response.data.token_access)
       window.location.href = window.location.origin + '/home'
-    } catch (error) {
+    } catch (response) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const errorr = error as any
-      setStateLogin(errorr.response.data.message)
+      const errorr = response as any
+      if (errorr.response) setStateLogin(errorr.response.data.message)
     }
   }
   return (

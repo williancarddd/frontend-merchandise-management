@@ -9,18 +9,23 @@ export const api_merchandise: AxiosInstance = axios.create({
 
 api_merchandise.interceptors.request.use(async (config) => {
   const token = getToken()
+  console.log('interceptor request')
   if (token) {
-    if (config.headers) config.headers.Authorization = `Bearer ${token}`
+    if (config.headers) config.headers.Authorization = `${token}`
   }
   return config
 })
-api_merchandise.interceptors.response.use(async (config) => {
-  const { type } = config.data as IError
-  console.log(config.data)
-  if (type === 'TokenExpiredError') {
-    localStorage.clear()
-    window.location.href = window.location.origin + '/login'
-    console.log('token expirado, voce foi redirecionado.')
+
+api_merchandise.interceptors.response.use(
+  async (config) => {
+    return config
+  },
+  async (err) => {
+    const { type } = err.response.data as IError
+    if (type === 'TokenExpiredError') {
+      localStorage.clear()
+      window.location.href = window.location.origin + '/login'
+    }
+    throw err
   }
-  return config
-})
+)

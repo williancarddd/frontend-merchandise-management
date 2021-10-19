@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { Merchandises } from '../../Components/Merchandises'
 import { SideBar } from '../../Components/SideBar'
 import { SideBarItem } from '../../Components/SideBarITem'
+import { DataView } from '../DataView'
 import * as S from './style'
 
 export function Home(): JSX.Element {
@@ -10,21 +12,23 @@ export function Home(): JSX.Element {
       <SideBar>
         <SideBarItem
           text='Merchan...'
-          render={'testando'}
+          render={<Merchandises />}
           setRender={setCompRender}
         />
         <SideBarItem
           text='Merchan...'
-          render={'testando'}
+          render={'ddas'}
           setRender={setCompRender}
         />
         <SideBarItem
           text='Merchan...'
-          render={'testando'}
+          render={'dasdd'}
           setRender={setCompRender}
         />
       </SideBar>
-      {compRender}
+      <S.ContainerContent>
+        <DataView>{compRender}</DataView>
+      </S.ContainerContent>
     </S.ContainerHome>
   )
 }
