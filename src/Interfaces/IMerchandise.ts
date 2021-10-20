@@ -4,7 +4,7 @@ export interface IMerchandise {
   id?: number
   name_merchandise?: string
   photo_merchandise?: string | null
-  state_merchandise?: boolean
+  state_merchandise?: string
   price_merchandise?: number
   quantity_stock_merchandise?: number
   ClassificationId?: number

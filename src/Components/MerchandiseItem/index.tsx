@@ -1,15 +1,28 @@
 import { IMerchandise } from '../../Interfaces/IMerchandise'
-
-export function MerchandiseItem({ data }: { data: IMerchandise }): JSX.Element {
+import { FormatDateHours } from '../../Utils/FormatDateHours'
+import { MerchandiseDelete } from '../MerchandiseDelete'
+import * as S from './style'
+export function MerchandiseItem({
+  data,
+  deleteF,
+}: {
+  data: IMerchandise
+  deleteF: (id?: number) => void
+}): JSX.Element {
+  const [date, hours] = FormatDateHours(data.createdAt)
   return (
-    <>
+    <tr>
       <td>{data.id}</td>
       <td>{data.name_merchandise}</td>
       <td>{data.price_merchandise}</td>
       <td>{data.quantity_stock_merchandise}</td>
-      <td>{data.createdAt}</td>
-      <td>{data.state_merchandise}</td>
-      <td>delete</td>
-    </>
+      <td>{`${hours} | ${date}`}</td>
+      <td>
+        <S.StateMerch state={data.state_merchandise} />
+      </td>
+      <td>
+        <MerchandiseDelete deleteFD={deleteF} id={data.id} />
+      </td>
+    </tr>
   )
 }

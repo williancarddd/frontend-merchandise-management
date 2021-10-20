@@ -20,10 +20,8 @@ export const Table = styled.table`
   td,
   th {
     border: 1px solid #dddddd;
-    text-align: left;
+    text-align: center;
     padding: 8px;
-    padding-left: 2em;
-    padding-right: 0.5em;
   }
   tr:nth-child(even) {
     background-color: #dddddd;

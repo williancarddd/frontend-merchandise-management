@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import boxAssetsImg from '../../Assets/Images/Box-icon.png'
 import { ILoginUser } from '../../Interfaces/ILoginUser'
 import { api_merchandise } from '../../Services/merchandiseApi'
-import { useClockState } from '../../Assets/Hook/useClockState'
+import { useClockState } from '../../Hook/useClockState'
 import { setToken } from '../../Utils/managerToken'
 import { IToken } from '../../Interfaces/IToken'
 export function Login(): JSX.Element {

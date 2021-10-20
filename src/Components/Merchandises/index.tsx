@@ -3,16 +3,15 @@ import { IMerchandise } from '../../Interfaces/IMerchandise'
 import { api_merchandise } from '../../Services/merchandiseApi'
 import * as SG from '../../Styles/global.styles'
 import { MerchandiseItem } from '../MerchandiseItem'
+import { SearchBar } from '../SearchBar'
 import * as S from './style'
 export function Merchandises(): JSX.Element {
   const [merchandises, setMerchandises] = useState<IMerchandise[]>([{}])
+  const [valueSearch, setValueSearch] = useState<string | number>('')
   useEffect(() => {
-    // eslint-disable-next-line prettier/prettier
-    (async () => {
-      handleMerchandises()
-    })()
+    handleMerchandises()
   }, [])
-  async function handleMerchandises() {
+  async function handleMerchandises(): Promise<void> {
     try {
       const response = await api_merchandise.get<IMerchandise[]>('/merchandise')
       setMerchandises(response.data)
@@ -22,10 +21,28 @@ export function Merchandises(): JSX.Element {
       console.log(err.response.data.message)
     }
   }
-  console.log(merchandises)
+  function handleDeleteMerch(id?: number): void {
+    if (id) {
+      const indexItem: number = merchandises.findIndex((e) => e.id == id)
+      merchandises.splice(indexItem, 1)
+      setMerchandises([...merchandises])
+    }
+  }
+  const handleSearchMerch = (merch: IMerchandise[]) => {
+    const filtred_merch = merch?.filter((merchItem) => {
+      return (
+        merchItem.id == Number(valueSearch) ||
+        merchItem.name_merchandise
+          ?.toLocaleLowerCase()
+          .includes(String(valueSearch).toLocaleLowerCase())
+      )
+    })
+    return filtred_merch
+  }
+  const filtered_merchs = handleSearchMerch(merchandises)
   return (
     <S.ContainerMerchandise>
-      {/**search bar  */}
+      <SearchBar valueSearch={valueSearch} setValueSearch={setValueSearch} />
       <SG.Table>
         <thead>
           <tr>
@@ -39,13 +56,25 @@ export function Merchandises(): JSX.Element {
           </tr>
         </thead>
         <tbody>
-          {merchandises.length > 0
-            ? merchandises.map((merch) => (
-                <tr key={merch.id}>
-                  <MerchandiseItem data={merch} />
-                </tr>
-              ))
-            : ''}
+          {valueSearch ? (
+            filtered_merchs.map((merch) => (
+              <MerchandiseItem
+                key={Math.random()}
+                data={merch}
+                deleteF={handleDeleteMerch}
+              />
+            ))
+          ) : merchandises.length > 0 ? (
+            merchandises.map((merch) => (
+              <MerchandiseItem
+                key={Math.random()}
+                data={merch}
+                deleteF={handleDeleteMerch}
+              />
+            ))
+          ) : (
+            <></>
+          )}
         </tbody>
       </SG.Table>
     </S.ContainerMerchandise>
