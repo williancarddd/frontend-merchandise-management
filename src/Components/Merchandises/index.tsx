@@ -5,9 +5,17 @@ import * as SG from '../../Styles/global.styles'
 import { MerchandiseItem } from '../MerchandiseItem'
 import { SearchBar } from '../SearchBar'
 import * as S from './style'
-export function Merchandises(): JSX.Element {
+
+interface IMerchandiseProps {
+  setRenderComp?: React.Dispatch<React.SetStateAction<string | JSX.Element>>
+}
+
+export function Merchandises({
+  setRenderComp,
+}: IMerchandiseProps): JSX.Element {
   const [merchandises, setMerchandises] = useState<IMerchandise[]>([{}])
   const [valueSearch, setValueSearch] = useState<string | number>('')
+
   useEffect(() => {
     handleMerchandises()
   }, [])
@@ -21,6 +29,7 @@ export function Merchandises(): JSX.Element {
       console.log(err.response.data.message)
     }
   }
+
   function handleDeleteMerch(id?: number): void {
     if (id) {
       const indexItem: number = merchandises.findIndex((e) => e.id == id)
@@ -28,6 +37,7 @@ export function Merchandises(): JSX.Element {
       setMerchandises([...merchandises])
     }
   }
+
   const handleSearchMerch = (merch: IMerchandise[]) => {
     const filtred_merch = merch?.filter((merchItem) => {
       return (
@@ -62,6 +72,7 @@ export function Merchandises(): JSX.Element {
                 key={Math.random()}
                 data={merch}
                 deleteF={handleDeleteMerch}
+                updateF={setRenderComp}
               />
             ))
           ) : merchandises.length > 0 ? (
@@ -70,6 +81,7 @@ export function Merchandises(): JSX.Element {
                 key={Math.random()}
                 data={merch}
                 deleteF={handleDeleteMerch}
+                updateF={setRenderComp}
               />
             ))
           ) : (

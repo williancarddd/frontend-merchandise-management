@@ -12,7 +12,7 @@ export function Home(): JSX.Element {
       <SideBar>
         <SideBarItem
           text='Merchan...'
-          render={<Merchandises />}
+          render={<Merchandises setRenderComp={setCompRender} />}
           setRender={setCompRender}
         />
         <SideBarItem
