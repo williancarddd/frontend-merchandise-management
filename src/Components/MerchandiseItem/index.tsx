@@ -15,10 +15,12 @@ export function MerchandiseItem({
     | undefined
 }): JSX.Element {
   const [date, hours] = FormatDateHours(data.createdAt)
+
   return (
     <tr>
       <td>{data.id}</td>
       <td>{data.name_merchandise}</td>
+      <td>{data.Classification?.name_classification}</td>
       <td>{data.price_merchandise}</td>
       <td>{data.quantity_stock_merchandise}</td>
       <td>{`${hours} | ${date}`}</td>
@@ -28,7 +30,12 @@ export function MerchandiseItem({
       <td style={{ display: 'flex', gap: '5px' }}>
         <MerchandiseDelete deleteFD={deleteF} id={data.id} />
         <S.UpdateMerchButton
-          onClick={updateF ? () => updateF(<MerchandiseUpdate />) : undefined}
+          onClick={
+            updateF
+              ? () =>
+                  updateF(<MerchandiseUpdate data={data} backFrame={updateF} />)
+              : undefined
+          }
         >
           Update
         </S.UpdateMerchButton>
