@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { MerchandiseCreate } from '../../Components/MerchandiseCreate'
 import { Merchandises } from '../../Components/Merchandises'
 import { SideBar } from '../../Components/SideBar'
 import { SideBarItem } from '../../Components/SideBarITem'
@@ -16,13 +17,13 @@ export function Home(): JSX.Element {
           setRender={setCompRender}
         />
         <SideBarItem
-          text='Merchan...'
-          render={'ddas'}
+          text='Create Merch..'
+          render={<MerchandiseCreate />}
           setRender={setCompRender}
         />
         <SideBarItem
           text='Merchan...'
-          render={'dasdd'}
+          render={'dsad'}
           setRender={setCompRender}
         />
       </SideBar>
